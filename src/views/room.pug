@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title Socket.IO chat
+    link(rel="stylesheet", href="style.css")
+    script(src="/socket.io/socket.io.js", defer)
+    script(src="script.js", defer)
+  body
+    ul#messages
+    form#form(action="")
+      input#input(autocomplete="off")
+      button Send

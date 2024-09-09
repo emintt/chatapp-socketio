@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Socket.IO chat
+    link(rel="stylesheet", href="style.css")
+    script(src="/socket.io/socket.io.js", defer)
+    //- script(src="script.js", defer)
+  body
+    .rooms
+      each roomName in Object.keys(rooms)
+        div.room
+          div= roomName
+          a(href=`/${roomName}`) Join
+    form#add-room-form.form(action="/room", method="POST")
+      input#add-room-input(name="room" autocomplete="off", placeholder="Enter room name" required)
+      button(type="submit") Create

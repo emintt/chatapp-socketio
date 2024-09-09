@@ -2,72 +2,18 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
-    <style>
-      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-
-      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
-      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; }
-      #input:focus { outline: none; }
-      #form > button { background: #333; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
-
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages > li { padding: 0.5rem 1rem; }
-      #messages > li:nth-child(odd) { background: #efefef; }
-      .bold {font-weight: 700;}
-      .bold-italic {font-style: italic; font-weight: 700;}
-    </style>
+    <link rel="stylesheet" href="style.css">
+    <script src="/socket.io/socket.io.js" defer></script>
+    <!-- <script src="script.js" defer></script> -->
   </head>
   <body>
-
-    <ul id="messages"></ul>
-    <form id="form" action="">
-      <input id="input" autocomplete="off" /><button>Send</button>
+    <div class="room">
+      <p>Name</p>
+      <a href="/name">Join</a>
+    </div>
+    <form id="add-room-form" action="" class="form">
+      <input id="add-room-input" autocomplete="off" placeholder="Enter room name" /><button>Create</button>
     </form>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      const socket = io();
-
-      const messages = document.querySelector('#messages');
-      const form = document.querySelector('#form');
-      const chatMesInput = document.querySelector('#input');
-
-      const appendMessage = (msg, className) => {
-        console.log('msg', msg);
-        console.log('classname', className);
-        const item = document.createElement('li');
-        item.textContent = msg;
-        if (className) {
-          item.classList.add(className);
-        }
-        console.log('item', item);
-        messages.appendChild(item);
-      };
-
-      const userName = prompt(`What's your name?`);
-      socket.emit('new user', userName);
-
-      form.addEventListener('submit', function(e) {
-        e.preventDefault();
-        const message = chatMesInput.value;
-        if (message) {
-          socket.emit('chat message', {message, userName}); // send mes, name to server with a 'chat message' event
-          chatMesInput.value = '';
-        }
-      });
-
-      socket.on('chat message', function(msg) {
-        appendMessage(`${msg.userName}: ${msg.message}`);
-        window.scrollTo(0, document.body.scrollHeight);
-      });
-
-      socket.on('user connected', (name) => {
-        appendMessage(`${name} joined`, 'bold');
-      });
-
-      socket.on('user disconnected', (name) => {
-        appendMessage(`${name} left`, 'bold-italic');
-      });
-    </script>
   </body>
 </html>
