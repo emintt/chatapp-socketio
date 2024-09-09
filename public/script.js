@@ -6,6 +6,8 @@ const socket = io();
   const messages = document.querySelector('#messages');
   const form = document.querySelector('#form');
   const chatMesInput = document.querySelector('#input');
+  const roomContainerE = document.querySelector('#rooms');
+
 
   const appendMessage = (msg, className) => {
     console.log('msg', msg);
@@ -19,16 +21,27 @@ const socket = io();
     messages.appendChild(item);
   };
 
-  const userName = prompt(`What's your name?`);
-  socket.emit('new user', userName);
+  if (messages !== null) {
+    const userName = prompt(`What's your name?`);
+    socket.emit('new user', roomName, userName);
 
-  form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    const message = chatMesInput.value;
-    if (message) {
-      socket.emit('chat message', {message, userName}); // send mes, name to server with a 'chat message' event
-      chatMesInput.value = '';
-    }
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      const message = chatMesInput.value;
+      if (message) {
+        socket.emit('chat message', roomName, message, userName); // send mes, name to server with a 'chat message' event
+        chatMesInput.value = '';
+      }
+    });
+  }
+
+  socket.on('room created', room => {
+    const roomElement = 
+      `<div class="room">
+        <div>${room}</div>
+        <a href="/${room}">Join</a>
+      </div>`;
+    roomContainerE.insertAdjacentHTML('beforeend', roomElement);
   });
 
   socket.on('chat message', function(msg) {

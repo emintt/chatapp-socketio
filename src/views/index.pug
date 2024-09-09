@@ -4,9 +4,9 @@ html
     title Socket.IO chat
     link(rel="stylesheet", href="style.css")
     script(src="/socket.io/socket.io.js", defer)
-    //- script(src="script.js", defer)
+    script(src="script.js", defer)
   body
-    .rooms
+    #rooms
       each roomName in Object.keys(rooms)
         div.room
           div= roomName
