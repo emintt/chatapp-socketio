@@ -11,9 +11,16 @@ Taustapalvelin: express, pug template
 Huoneet toteutetaan join()-menetelmällä. Viestit lähetetään kaikille huoneessa oleville käyttäjille käyttäen socket.to(room).emit.
 
 Screenshots:
+Add name
 ![Add name](/screenshots/add-name.png)
+
+Create room
 ![Create room](/screenshots/create-room.png "create room")
-![Room chat name](/screenshots/room-chat.png "2 rooms")
+
+Room chat
+![Room chat](/screenshots/room-chat.png "2 rooms")
+
+Disconnect
 ![Disconnect](/screenshots/disconnect.png "one person left the room")
 
 ## 2. Namespaces in Socket.IO
