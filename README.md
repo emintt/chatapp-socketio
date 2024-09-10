@@ -17,7 +17,7 @@ Add name
 Create room
 ![Create room](/screenshots/create-room.png "create room")
 
-Room chat
+2 rooms
 ![Room chat](/screenshots/room-chat.png "2 rooms")
 
 Disconnect
